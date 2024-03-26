@@ -11,8 +11,12 @@ config_version=4
 [application]
 
 config/name="webtest3"
-run/main_scene="res://Level1.tscn"
+run/main_scene="res://Menu.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Global="*res://script/Global.cs"
 
 [display]
 

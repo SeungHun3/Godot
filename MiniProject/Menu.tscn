@@ -1,0 +1,107 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://addons/google_fonts/Aclonica-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Resources/Player/bunny2_walk1.png" type="Texture" id=2]
+[ext_resource path="res://script/Button.cs" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 101
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 35
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 24
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Rabbit:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -200, 159 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Rabbit"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Rabbit:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -200, 159 ), Vector2( 445, 159 ) ]
+}
+
+[node name="Menu" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0.921569, 0.886275, 0.0235294, 1 )
+
+[node name="Rabbit" type="TextureRect" parent="ColorRect"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -712.0
+margin_top = 159.0
+margin_right = -591.0
+margin_bottom = 360.0
+texture = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="ColorRect"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -179.0
+margin_top = 28.0
+margin_right = 184.0
+margin_bottom = 139.0
+custom_fonts/font = SubResource( 1 )
+text = "Rabbit"
+
+[node name="Button" type="Button" parent="ColorRect"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -54.5
+margin_top = -130.0
+margin_right = 54.5
+margin_bottom = -85.0
+custom_fonts/font = SubResource( 2 )
+text = "start"
+script = ExtResource( 3 )
+
+[node name="Label2" type="Label" parent="ColorRect"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -323.0
+margin_top = -42.0
+margin_right = -18.0
+margin_bottom = -15.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "copyright Number1220"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect"]
+autoplay = "Rabbit"
+anims/RESET = SubResource( 4 )
+anims/Rabbit = SubResource( 5 )
+
+[connection signal="pressed" from="ColorRect/Button" to="ColorRect/Button" method="_on_Button_pressed"]

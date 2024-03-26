@@ -50,5 +50,12 @@ public class Player : KinematicBody2D
 		velocity.x = Mathf.Lerp(velocity.x, 0, 0.1f);
 		MoveAndSlide(velocity, Vector2.Up);
 	}
+	private void _on_FallZone_body_entered(object body)
+	{
+		GetTree().ChangeScene("res://Menu.tscn");
+		GD.Print("restart");
+	}
+
 
 }
+

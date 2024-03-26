@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=18 format=2]
 
+[ext_resource path="res://Coin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://script/Level1.cs" type="Script" id=3]
 [ext_resource path="res://script/Screen.cs" type="Script" id=4]
@@ -7,6 +8,8 @@
 [ext_resource path="res://Resources/Environment/ground_cake_broken.png" type="Texture" id=6]
 [ext_resource path="res://Resources/Environment/ground_cake_small_broken.png" type="Texture" id=7]
 [ext_resource path="res://Resources/Environment/ground_cake_small.png" type="Texture" id=8]
+[ext_resource path="res://addons/google_fonts/Aclonica-Regular.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://script/HUD.cs" type="Script" id=10]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 368, 1, 383, 17, 383, 33, 352, 81, 32, 97, 0, 17, 16, 1, 16, 1 )
@@ -106,6 +109,13 @@ points = PoolVector2Array( 192, 0, 208, 16, 208, 32, 176, 96, 32, 96, 16, 80, 0,
 } ]
 3/z_index = 0
 
+[sub_resource type="DynamicFont" id=7]
+size = 40
+font_data = ExtResource( 9 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 1877, 135 )
+
 [node name="Level1" type="Node2D"]
 script = ExtResource( 3 )
 
@@ -113,11 +123,68 @@ script = ExtResource( 3 )
 script = ExtResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 368, 183 )
+position = Vector2( 256, 407 )
 collision_layer = 3
 collision_mask = 3
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+limit_left = 0
+limit_top = -90
+limit_right = 2410
+limit_bottom = 745
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+drag_margin_top = 0.4
+drag_margin_bottom = 0.4
+editor_draw_limits = true
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 6 )
 format = 1
-tile_data = PoolIntArray( 131081, 3, 0, 131082, 3, 0, 131084, 3, 0, 262148, 2, 0, 458754, 1, 0, 524295, 0, 0 )
+tile_data = PoolIntArray( 65541, 3, 0, 131081, 3, 0, 131082, 3, 0, 131084, 3, 0, 131090, 0, 0, 196633, 2, 0, 262151, 3, 0, 262173, 0, 0, 393242, 2, 0, 458754, 1, 0, 524295, 0, 0, 524302, 1, 0, 524309, 1, 0 )
+
+[node name="Coin" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1327, 65 )
+
+[node name="Coin3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1732, 320 )
+
+[node name="Coin4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1082, 443 )
+
+[node name="Coin5" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1483, 455 )
+
+[node name="Coin2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 439, 400 )
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource( 10 )
+
+[node name="Score" type="Label" parent="HUD"]
+anchor_right = 1.0
+margin_left = 29.0
+margin_top = 14.0
+margin_right = -6.0
+margin_bottom = 85.0
+custom_fonts/font = SubResource( 7 )
+text = "00"
+align = 1
+
+[node name="FallZone" type="Area2D" parent="."]
+position = Vector2( 505, 640 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FallZone"]
+position = Vector2( 0, 125 )
+shape = SubResource( 8 )
+
+[connection signal="CoinCollected" from="Coin" to="HUD" method="_on_Coin_CoinCollected"]
+[connection signal="CoinCollected" from="Coin3" to="HUD" method="_on_Coin_CoinCollected"]
+[connection signal="CoinCollected" from="Coin4" to="HUD" method="_on_Coin_CoinCollected"]
+[connection signal="CoinCollected" from="Coin5" to="HUD" method="_on_Coin_CoinCollected"]
+[connection signal="CoinCollected" from="Coin2" to="HUD" method="_on_Coin_CoinCollected"]
+[connection signal="body_entered" from="FallZone" to="Player" method="_on_FallZone_body_entered"]
