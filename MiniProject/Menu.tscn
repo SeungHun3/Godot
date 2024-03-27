@@ -1,8 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://addons/google_fonts/Aclonica-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Resources/Player/bunny2_walk1.png" type="Texture" id=2]
 [ext_resource path="res://script/Button.cs" type="Script" id=3]
+[ext_resource path="res://script/Screen.cs" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=6]
+size = 37
+font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=1]
 size = 101
@@ -47,6 +52,18 @@ tracks/0/keys = {
 }
 
 [node name="Menu" type="Node2D"]
+
+[node name="Screen" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="ScreenText" type="Label" parent="Screen"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -316.0
+margin_bottom = 54.0
+custom_fonts/font = SubResource( 6 )
+text = "screen"
+align = 2
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1024.0

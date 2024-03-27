@@ -18,11 +18,13 @@ animations = [ {
 radius = 41.1096
 
 [node name="Coin" type="Area2D"]
+collision_layer = 2
 script = ExtResource( 5 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "Coin_Anim"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -28,6 +28,7 @@ animations = [ {
 extents = Vector2( 23, 25.5 )
 
 [node name="Player" type="KinematicBody2D"]
+collision_mask = 30
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
@@ -43,3 +44,9 @@ playing = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 6.5 )
 shape = SubResource( 2 )
+
+[node name="PlayerTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="timeout" from="PlayerTimer" to="." method="_on_Timer_timeout"]

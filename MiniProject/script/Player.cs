@@ -55,7 +55,23 @@ public class Player : KinematicBody2D
 		GetTree().ChangeScene("res://Menu.tscn");
 		GD.Print("restart");
 	}
+	public void MiniJump()
+	{
+		velocity.y = jump * 0.8f;
+	}
+	public void Die()
+	{
+		Modulate = new Color(1f, 0.2f, 0.2f, 0.2f);
+		velocity.y = jump * 1;
+		GetNode<Timer>("PlayerTimer").Start();
+	}
+	private void _on_Timer_timeout()
+	{
+		QueueFree();
+		GetTree().ChangeScene("res://Menu.tscn");
+	}
 
 
 }
+
 

@@ -3,13 +3,13 @@
 [ext_resource path="res://Coin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://script/Level1.cs" type="Script" id=3]
-[ext_resource path="res://script/Screen.cs" type="Script" id=4]
 [ext_resource path="res://Resources/Environment/ground_cake.png" type="Texture" id=5]
 [ext_resource path="res://Resources/Environment/ground_cake_broken.png" type="Texture" id=6]
 [ext_resource path="res://Resources/Environment/ground_cake_small_broken.png" type="Texture" id=7]
 [ext_resource path="res://Resources/Environment/ground_cake_small.png" type="Texture" id=8]
 [ext_resource path="res://addons/google_fonts/Aclonica-Regular.ttf" type="DynamicFontData" id=9]
 [ext_resource path="res://script/HUD.cs" type="Script" id=10]
+[ext_resource path="res://Enemy.tscn" type="PackedScene" id=11]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 368, 1, 383, 17, 383, 33, 352, 81, 32, 97, 0, 17, 16, 1, 16, 1 )
@@ -119,13 +119,8 @@ extents = Vector2( 1877, 135 )
 [node name="Level1" type="Node2D"]
 script = ExtResource( 3 )
 
-[node name="ScreenChecker" type="Node" parent="."]
-script = ExtResource( 4 )
-
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 256, 407 )
-collision_layer = 3
-collision_mask = 3
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
@@ -141,6 +136,8 @@ editor_draw_limits = true
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 6 )
+collision_layer = 4
+collision_mask = 17
 format = 1
 tile_data = PoolIntArray( 65541, 3, 0, 131081, 3, 0, 131082, 3, 0, 131084, 3, 0, 131090, 0, 0, 196633, 2, 0, 262151, 3, 0, 262173, 0, 0, 393242, 2, 0, 458754, 1, 0, 524295, 0, 0, 524302, 1, 0, 524309, 1, 0 )
 
@@ -174,6 +171,7 @@ align = 1
 
 [node name="FallZone" type="Area2D" parent="."]
 position = Vector2( 505, 640 )
+collision_layer = 8
 __meta__ = {
 "_edit_group_": true
 }
@@ -181,6 +179,11 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FallZone"]
 position = Vector2( 0, 125 )
 shape = SubResource( 8 )
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource( 11 )]
+position = Vector2( 728, 334 )
 
 [connection signal="CoinCollected" from="Coin" to="HUD" method="_on_Coin_CoinCollected"]
 [connection signal="CoinCollected" from="Coin3" to="HUD" method="_on_Coin_CoinCollected"]
